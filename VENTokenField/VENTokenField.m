@@ -311,7 +311,12 @@ static const CGFloat VENTokenFieldDefaultMaxHeight          = 150.0;
 {
     for (NSUInteger i = 0; i < [self numberOfTokens]; i++) {
         NSString *title = [self titleForTokenAtIndex:i];
-        VENToken *token = [[VENToken alloc] init];
+        VENToken *token;
+        if ([self.delegate respondsToSelector:@selector(tokenField:tokenAtIndex:)]) {
+            token = [self.delegate tokenField:self tokenAtIndex:i];
+        } else {
+            token = [[VENToken alloc] init];
+        }
 
         __weak VENToken *weakToken = token;
         __weak VENTokenField *weakSelf = self;
