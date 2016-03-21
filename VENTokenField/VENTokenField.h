@@ -50,6 +50,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) id<VENTokenFieldDelegate> delegate;
 @property (weak, nonatomic) id<VENTokenFieldDataSource> dataSource;
 
+@property (strong, nonatomic) UIScrollView *scrollView;
+
 - (void)reloadData;
 - (void)collapse;
 - (nullable NSString *)inputText;
