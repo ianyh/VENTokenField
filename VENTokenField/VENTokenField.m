@@ -270,12 +270,18 @@ static const CGFloat VENTokenFieldDefaultMaxHeight          = 150.0;
     }
 
     VENBackspaceTextField *inputTextField = self.inputTextField;
+	UIScrollView *embeddingScrollView = (UIScrollView *)inputTextField.superview;
+	if (embeddingScrollView == nil || embeddingScrollView == self.scrollView) {
+		embeddingScrollView = [[UIScrollView alloc] init];
+	}
     if (clearInput) {
         inputTextField.text = @"";
     }
-    inputTextField.frame = CGRectMake(*currentX, *currentY + 1, inputTextFieldWidth, [self heightForToken] - 1);
+	embeddingScrollView.frame = CGRectMake(*currentX, *currentY + 1, inputTextFieldWidth, [self heightForToken] - 1);
+    inputTextField.frame = CGRectMake(0, 0, inputTextFieldWidth, [self heightForToken] - 1);
     inputTextField.tintColor = self.colorScheme;
-    [self.scrollView addSubview:inputTextField];
+	[embeddingScrollView addSubview:inputTextField];
+    [self.scrollView addSubview:embeddingScrollView];
 }
 
 - (void)layoutCollapsedLabelWithCurrentX:(CGFloat *)currentX
